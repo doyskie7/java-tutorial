@@ -14,19 +14,18 @@ public class LoginProgram {
         System.out.print("Enter User Password:");
         userInput.Password = scanner.nextLine();
         
-        while(tries <= 3){
-            userInput = ValidateEntry(userInput.UserId,userInput.Password);
+        while(tries <= 2){
+            userInput = ValidateEntry(userInput.UserId,userInput.Password, tries);
             tries++;
         }
-        System.out.print("Try later");
+        System.out.print("Try later \n");
         System.exit(0);
-        
     }
-    
-    public static User ValidateEntry(String UserId, String Password){
+    public static User ValidateEntry(String UserId, String Password, int tries){
         StoredCredential checker = new StoredCredential();
         Scanner scanner = new Scanner(System.in);
         User userInput = new User();
+        
         userInput.UserId = UserId;
         userInput.Password = Password;
         
@@ -34,7 +33,7 @@ public class LoginProgram {
             
             System.out.println("Wrong User ID \n");
             System.out.print("Enter User ID:");
-            userInput.UserId = scanner.nextLine();
+            userInput.UserId = scanner.nextLine();          
             return userInput;
             
         }else if(!Password.equals(checker.Password) && UserId.equals(checker.UserId)){
