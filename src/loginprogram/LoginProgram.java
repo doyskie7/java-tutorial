@@ -14,12 +14,16 @@ public class LoginProgram {
         System.out.print("Enter User Password:");
         userInput.Password = scanner.nextLine();
         
-        while(tries <= 2){
-            userInput = ValidateEntry(userInput.UserId,userInput.Password, tries);
+        while(tries > 0){
+            if(userInput.LoginTries >= 2){
+                System.out.print("Try later \n");
+                System.exit(0);
+            }else{
+                userInput = ValidateEntry(userInput.UserId,userInput.Password, tries);
+            }
             tries++;
         }
-        System.out.print("Try later \n");
-        System.exit(0);
+        
     }
     public static User ValidateEntry(String UserId, String Password, int tries){
         StoredCredential checker = new StoredCredential();
@@ -28,6 +32,9 @@ public class LoginProgram {
         
         userInput.UserId = UserId;
         userInput.Password = Password;
+        userInput.LoginTries = tries;
+        
+       
         
         if(!UserId.equals(checker.UserId) && Password.equals(checker.Password)){
             
